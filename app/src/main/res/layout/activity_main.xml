@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".25"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".58"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/chooseGene"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/choose_want_gene"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/about"
+        android:textSize="13sp"
+        android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/wantGeneTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/want_gene_area_title"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chooseGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nonPercentIcon"
+        android:layout_width="16dp"
+        android:layout_height="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/non_elem"
+        app:layout_constraintStart_toStartOf="@id/nonPercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nonPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toStartOf="@id/firePercent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/firePercentIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/fire_icon"
+        app:layout_constraintStart_toStartOf="@id/firePercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/firePercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toStartOf="@id/waterPercent"
+        app:layout_constraintStart_toEndOf="@id/nonPercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/waterPercentIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/water_icon"
+        app:layout_constraintStart_toStartOf="@id/waterPercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/waterPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toStartOf="@id/thunderPercent"
+        app:layout_constraintStart_toEndOf="@id/firePercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/thunderPercentIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/thunder"
+        app:layout_constraintStart_toStartOf="@id/thunderPercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/thunderPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/waterPercent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneOne"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icePercentIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ice_icon"
+        app:layout_constraintEnd_toEndOf="@id/nonPercentIcon"
+        app:layout_constraintStart_toStartOf="@id/nonPercentIcon"
+        app:layout_constraintTop_toBottomOf="@id/nonPercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/icePercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toEndOf="@id/nonPercent"
+        app:layout_constraintStart_toStartOf="@id/nonPercent"
+        app:layout_constraintTop_toBottomOf="@id/nonPercent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dragonPercentIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/dragon_icon"
+        app:layout_constraintEnd_toEndOf="@id/firePercentIcon"
+        app:layout_constraintStart_toStartOf="@id/firePercentIcon"
+        app:layout_constraintTop_toBottomOf="@id/nonPercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dragonPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:text="100%"
+        app:layout_constraintEnd_toEndOf="@id/firePercent"
+        app:layout_constraintStart_toStartOf="@id/firePercent"
+        app:layout_constraintTop_toBottomOf="@id/nonPercent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/powerIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/power_icon"
+        app:layout_constraintEnd_toStartOf="@id/powerPercent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icePercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/powerPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        app:layout_constraintEnd_toStartOf="@id/speedIcon"
+        app:layout_constraintStart_toEndOf="@id/powerIcon"
+        app:layout_constraintTop_toTopOf="@id/powerIcon"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/speedIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/speed_icon"
+        app:layout_constraintEnd_toStartOf="@id/speedPercent"
+        app:layout_constraintStart_toEndOf="@id/powerPercent"
+        app:layout_constraintTop_toBottomOf="@id/icePercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/speedPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        app:layout_constraintEnd_toStartOf="@id/technicalIcon"
+        app:layout_constraintStart_toEndOf="@id/speedIcon"
+        app:layout_constraintTop_toTopOf="@id/powerIcon"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/technicalIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/technical_icon"
+        app:layout_constraintEnd_toStartOf="@id/technicalPercent"
+        app:layout_constraintStart_toEndOf="@id/speedPercent"
+        app:layout_constraintTop_toBottomOf="@id/icePercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/technicalPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/technicalIcon"
+        app:layout_constraintTop_toTopOf="@id/powerIcon"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/oneGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toTopOf="@id/fourGene"
+        app:layout_constraintEnd_toStartOf="@id/twoGene"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/powerPercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/oneGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/oneGene"
+        app:layout_constraintBottom_toBottomOf="@id/oneGene"
+        app:layout_constraintEnd_toEndOf="@id/oneGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/twoGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toTopOf="@id/fourGene"
+        app:layout_constraintEnd_toStartOf="@id/threeGene"
+        app:layout_constraintStart_toEndOf="@id/oneGene"
+        app:layout_constraintTop_toBottomOf="@id/powerPercent"
+        app:layout_constraintVertical_chainStyle="spread_inside"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/twoGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/twoGene"
+        app:layout_constraintBottom_toBottomOf="@id/twoGene"
+        app:layout_constraintEnd_toEndOf="@id/twoGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/threeGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toTopOf="@id/fourGene"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/twoGene"
+        app:layout_constraintTop_toBottomOf="@id/powerPercent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/threeGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/threeGene"
+        app:layout_constraintBottom_toBottomOf="@id/threeGene"
+        app:layout_constraintEnd_toEndOf="@id/threeGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fourGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toTopOf="@id/sevenGene"
+        app:layout_constraintEnd_toStartOf="@id/twoGene"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/oneGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fourGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/fourGene"
+        app:layout_constraintBottom_toBottomOf="@id/fourGene"
+        app:layout_constraintEnd_toEndOf="@id/fourGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fiveGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/sevenGene"
+        app:layout_constraintEnd_toStartOf="@id/threeGene"
+        app:layout_constraintStart_toEndOf="@id/oneGene"
+        app:layout_constraintTop_toBottomOf="@id/oneGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fiveGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/fiveGene"
+        app:layout_constraintBottom_toBottomOf="@id/fiveGene"
+        app:layout_constraintEnd_toEndOf="@id/fiveGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sixGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toTopOf="@id/sevenGene"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/twoGene"
+        app:layout_constraintTop_toBottomOf="@id/oneGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sixGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/sixGene"
+        app:layout_constraintBottom_toBottomOf="@id/sixGene"
+        app:layout_constraintEnd_toEndOf="@id/sixGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sevenGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:textSize="12sp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/twoGene"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fourGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sevenGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/sevenGene"
+        app:layout_constraintBottom_toBottomOf="@id/sevenGene"
+        app:layout_constraintEnd_toEndOf="@id/sevenGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/eightGene"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/threeGene"
+        app:layout_constraintStart_toEndOf="@id/oneGene"
+        app:layout_constraintTop_toBottomOf="@id/fourGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/eightGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/eightGene"
+        app:layout_constraintBottom_toBottomOf="@id/eightGene"
+        app:layout_constraintEnd_toEndOf="@id/eightGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nineGene"
+        android:textSize="12sp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_brightness_1_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/twoGene"
+        app:layout_constraintTop_toBottomOf="@id/fourGene"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nineGeneName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/nineGene"
+        app:layout_constraintBottom_toBottomOf="@id/nineGene"
+        app:layout_constraintEnd_toEndOf="@id/nineGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wantGeneOne"
+        android:layout_width="0dp"
+        android:textSize="12sp"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:tag="0"
+        app:layout_constraintEnd_toStartOf="@id/wantGeneTwo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wantGeneTwo"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toStartOf="@id/wantGeneThree"
+        app:layout_constraintStart_toEndOf="@id/wantGeneOne"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wantGeneThree"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toStartOf="@id/wantGeneFour"
+        app:layout_constraintStart_toEndOf="@id/wantGeneTwo"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wantGeneFour"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toStartOf="@id/wantGeneFive"
+        app:layout_constraintStart_toEndOf="@id/wantGeneThree"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wantGeneFive"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/wantGeneFour"
+        app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
