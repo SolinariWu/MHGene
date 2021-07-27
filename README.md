@@ -23,6 +23,10 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
 ### Latest version
     - v1.1 (July 27 , 2021)
 
+### Thanks
+
+   Thank [Sango](https://github.com/ncu104525008) supply data , Coeur、Skc supply image！
+
 ## License
     MIT License
 
