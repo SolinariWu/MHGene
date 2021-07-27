@@ -1,6 +1,7 @@
 # MHGene 魔物獵人:物語2 基因模擬器
-
 Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.MHSGene
+
+<img src="https://play-lh.googleusercontent.com/iNMg_lVvHXoHJyoHGhlBZCdhfacrXXQrFQlQcrnvjjOJKrAlvw1c1E10KK8vHP96294=s180-rw" width="120">
 
 還在基因配置煩惱?  還在用紙筆規劃嗎? 
 鄭重推出沒有廣告,超佛心的基因模擬器!
