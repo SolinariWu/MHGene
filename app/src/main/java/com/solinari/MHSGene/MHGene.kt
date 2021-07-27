@@ -1,42 +1,105 @@
 package com.solinari.MHSGene
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.app.Application
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.solinari.MHSGene.databinding.ActivityInitBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
 
-private const val GENE_DATA_URL = "https://bots.sang0.pw/mhs/ajax/data.json"
+private const val GENE_LIST_URL = "https://bots.sang0.pw/mhs/ajax/data.json"
 
-class InitActivity : AppCompatActivity() {
+class MHGene : Application() {
 
-    private lateinit var binding: ActivityInitBinding
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityInitBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding.root)
-        scope.launch(exceptionHandler) {
-            checkGeneData()
-        }
+    override fun onCreate() {
+        super.onCreate()
+        fetchGeneListData()
     }
 
-    private suspend fun checkGeneData() {
-        if (hasGeneData(applicationContext)) {
-            scope.cancel()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-        else {
-            fetchGeneData()
-        }
+    private fun fetchGeneListData() {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(GENE_LIST_URL)
+            .get()
+
+        client.newCall(request.build()).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                if (response.body == null) {
+                    Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                val respBody = response.body!!.string()
+
+                val jsonElement = JsonParser().parse(respBody)
+                if (jsonElement is JsonObject && jsonElement.has("version")) {
+
+                    val sp = getSharedPreferences(MHGENE_SP, MODE_PRIVATE)
+                    val dao = GeneDataBase.getDatabase(this@MHGene).GeneDao()
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        //若版本與本地的一樣，無需處理
+                        if (sp.getString(GENE_LIST_VERSION, "") != jsonElement.get("version").asString || dao.getAllGene().isEmpty()) {
+                            dao.deleteAllGene(dao.getAllGene())
+                            val geneArray = ArrayList<Gene>()
+
+                            //彩虹因子
+                            if (jsonElement.has("-1")) {
+                                val rainbowGeneObject = jsonElement.getAsJsonObject("-1")
+                                if (rainbowGeneObject.has("-1")) {
+                                    val jsonArray = rainbowGeneObject.getAsJsonArray("-1")
+                                    geneArray.add(geneParser(jsonArray.get(0).asJsonObject, -1, -1))
+                                }
+                            }
+
+                            //無屬
+                            if (jsonElement.has("1")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("1"), 1))
+                            }
+
+                            //火屬
+                            if (jsonElement.has("2")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("2"), 2))
+                            }
+
+                            //水屬
+                            if (jsonElement.has("3")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("3"), 3))
+                            }
+
+                            //雷屬
+                            if (jsonElement.has("4")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("4"), 4))
+                            }
+
+                            //冰屬
+                            if (jsonElement.has("5")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("5"), 5))
+                            }
+
+                            //龍屬
+                            if (jsonElement.has("6")) {
+                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("6"), 6))
+                            }
+
+                            dao.insertGene(geneArray)
+                        }
+                    }
+                }
+                else {
+                    Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun geneParser(jsonObject: JsonObject, geneType: Int, gentAttributes: Int): Gene {
@@ -189,87 +252,5 @@ class InitActivity : AppCompatActivity() {
         }
 
         return geneArray
-    }
-
-    private fun fetchGeneData() {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(GENE_DATA_URL)
-            .get()
-
-        client.newCall(request.build()).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-
-            }
-
-            @Throws(IOException::class)
-            override fun onResponse(call: Call, response: Response) {
-
-                if (response.body == null) {
-                    finish()
-                    return
-                }
-
-                val respBody = response.body!!.string()
-
-                val jsonElement = JsonParser().parse(respBody)
-                if (jsonElement is JsonObject) {
-                    val geneArray = ArrayList<Gene>()
-
-                    //彩虹因子
-                    if (jsonElement.has("-1")) {
-                        val rainbowGeneObject = jsonElement.getAsJsonObject("-1")
-                        if (rainbowGeneObject.has("-1")) {
-                            val jsonArray = rainbowGeneObject.getAsJsonArray("-1")
-                            geneArray.add(geneParser(jsonArray.get(0).asJsonObject,-1,-1))
-                        }
-                    }
-
-                    //無屬
-                    if (jsonElement.has("1")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("1"), 1))
-                    }
-
-                    //火屬
-                    if (jsonElement.has("2")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("2"), 2))
-                    }
-
-                    //水屬
-                    if (jsonElement.has("3")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("3"), 3))
-                    }
-
-                    //雷屬
-                    if (jsonElement.has("4")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("4"), 4))
-                    }
-
-                    //冰屬
-                    if (jsonElement.has("5")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("5"), 5))
-                    }
-
-                    //龍屬
-                    if (jsonElement.has("6")) {
-                        geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("6"), 6))
-                    }
-
-                    scope.launch(exceptionHandler) {
-                        fetchGeneDataComplete(geneArray)
-                    }
-                }
-            }
-        })
-    }
-
-    private suspend fun fetchGeneDataComplete(geneArray: ArrayList<Gene>) {
-        insertGeneData(applicationContext, geneArray)
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
-
-    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        Toast.makeText(this, "載入基因錯誤，${throwable.message}", Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">MHGene</string>
+    <string name="app_name">物語2 基因模擬器</string>
     <string name="init_waiting_text">搬蛋蒐集基因中，請稍後…</string>
-    <string name="choose_want_gene">按此前去選擇想要的基因</string>
+    <string name="choose_want_gene">新增想要的基因</string>
+    <string name="fetch_gene_error">拉取基因資料失敗</string>
 
     <string name="want_gene_area_title">待擺基因(用手指拖拉去想要的九宮格位置)</string>
     <string name="non_ele">無</string>
@@ -18,8 +19,8 @@
     <string name="attr">屬性</string>
     <string name="gene_double">此基因已在九宮格內</string>
     <string name="line_percent">%d %%</string>
-    <string name="about">關於</string>
-    <string name="about_developer">開發者：Solinari \n Email：solinariwu@gmail.com</string>
+    <string name="about"> 版本：v%s    關於</string>
+    <string name="about_developer">開發者：Solinari \nEmail：solinariwu@gmail.com</string>
     <string name="about_project_partner">感謝Sango , Skc , Coeur 協助開發</string>
     <string name="about_question">對此專案有任何問題或侵權疑慮，請Email聯絡我，感謝!</string>
 </resources>

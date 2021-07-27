@@ -19,7 +19,6 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
 
     private lateinit var binding: ActivityChooseGeneBinding
     private lateinit var adapter: GeneAdapter
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
     private lateinit var rainbowGene: Gene
     private val attrList = ArrayList<String>()
     private val typeList = ArrayList<String>()
@@ -37,12 +36,10 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
         binding.geneList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         adapter.listener = this
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val dao = GeneDataBase.getDatabase(this@ChooseGeneActivity).GeneDao()
             rainbowGene = dao.getRainbowGene()
-            runOnUiThread {
-                adapter.addGeneToFirst(rainbowGene)
-            }
+            adapter.addGeneToFirst(rainbowGene)
         }
         setClick()
     }
@@ -91,13 +88,11 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
     }
 
     private fun geneSelect() {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val dao = GeneDataBase.getDatabase(this@ChooseGeneActivity).GeneDao()
             val geneList = dao.findByTypeAndAttributes(typeList, attrList)
-            runOnUiThread {
-                adapter.geneList = ArrayList<Gene>().apply {
-                    addAll(geneList)
-                }
+            adapter.geneList = ArrayList<Gene>().apply {
+                addAll(geneList)
             }
         }
     }

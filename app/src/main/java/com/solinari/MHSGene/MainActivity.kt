@@ -16,7 +16,8 @@ import io.github.hyuwah.draggableviewlib.DraggableListener
 class MainActivity : AppCompatActivity(), DraggableListener, listenere {
     private lateinit var binding: ActivityMainBinding
     private var wantGeneList = ArrayList<Gene>()
-    private var geneViewList = ArrayList<ImageView>()
+    private var geneViewList = ArrayList<View>()
+    private var geneIconList = ArrayList<ImageView>()
     private var geneNameList = ArrayList<TextView>()
     private var wantGenePositionList = ArrayList<ViewPosition>()
     private var wantGeneViewList = ArrayList<ImageView>()
@@ -32,12 +33,15 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         initGeneViewList()
+        initGeneIconList()
         initGeneNameList()
         initWantGeneList()
-        binding.chooseGene.setOnClickListener {
-            activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
-        }
-        binding.about.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
+        setAbout()
+        addWantGene()
+//        binding.chooseGene.setOnClickListener {
+//            activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
+//        }
+//        binding.about.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
     }
 
     override fun onPositionChanged(view: View) {
@@ -68,30 +72,83 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         geneViewList.add(binding.nineGene)
     }
 
+    private fun initGeneIconList() {
+        geneIconList.add(binding.oneGeneIcon)
+        geneIconList.add(binding.twoGeneIcon)
+        geneIconList.add(binding.threeGeneIcon)
+        geneIconList.add(binding.fourGeneIcon)
+        geneIconList.add(binding.fiveGeneIcon)
+        geneIconList.add(binding.sixGeneIcon)
+        geneIconList.add(binding.sevenGeneIcon)
+        geneIconList.add(binding.eightGeneIcon)
+        geneIconList.add(binding.nineGeneIcon)
+    }
+
     private fun initWantGeneList() {
+        wantGeneViewList.add(binding.wantGeneOne)
+        wantGeneViewList.add(binding.wantGeneTwo)
+        wantGeneViewList.add(binding.wantGeneThree)
+        wantGeneViewList.add(binding.wantGeneFour)
+        wantGeneViewList.add(binding.wantGeneFive)
+        binding.wantGeneOne.setOnClickListener { wantGeneClick(0) }
+        binding.wantGeneTwo.setOnClickListener { wantGeneClick(1) }
+        binding.wantGeneThree.setOnClickListener { wantGeneClick(2) }
+        binding.wantGeneFour.setOnClickListener { wantGeneClick(3) }
+        binding.wantGeneFive.setOnClickListener { wantGeneClick(4) }
+
         binding.root.post {
             wantGenePositionList.add(ViewPosition(binding.wantGeneOne.x, binding.wantGeneOne.y))
             wantGenePositionList.add(ViewPosition(binding.wantGeneTwo.x, binding.wantGeneTwo.y))
             wantGenePositionList.add(ViewPosition(binding.wantGeneThree.x, binding.wantGeneThree.y))
             wantGenePositionList.add(ViewPosition(binding.wantGeneFour.x, binding.wantGeneFour.y))
             wantGenePositionList.add(ViewPosition(binding.wantGeneFive.x, binding.wantGeneFive.y))
+        }
+    }
 
-            wantGeneViewList.add(binding.wantGeneOne)
-            wantGeneViewList.add(binding.wantGeneTwo)
-            wantGeneViewList.add(binding.wantGeneThree)
-            wantGeneViewList.add(binding.wantGeneFour)
-            wantGeneViewList.add(binding.wantGeneFive)
+    private fun setAbout() {
+        try {
+            binding.about.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
+            val versionName = BuildConfig.VERSION_NAME
+            binding.about.text = getString(R.string.about, versionName)
+        } catch (e: Exception) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun wantGeneClick(position: Int) {
+        if (position >= wantGeneList.size) {
+            activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
+        }
+    }
+
+    private fun addWantGene() {
+        wantGeneViewList.forEachIndexed { index, imageView ->
+            if (wantGeneList.size > index) {
+                imageView.setImageResource(wantGeneList[index].getGeneIcon())
+                imageView.setupGeneDraggable(listener = this)
+            }
+            else {
+                imageView.setImageResource(R.drawable.ic_baseline_add_24)
+                imageView.setOnTouchListener(null)
+            }
         }
     }
 
     override fun dragEnd(v: View) {
         val dragGeneListPosition = v.tag.toString().toInt()
+        if (dragGeneListPosition >= wantGeneList.size) {
+            v.x = wantGenePositionList[dragGeneListPosition].x
+            v.y = wantGenePositionList[dragGeneListPosition].y
+            return
+        }
         val gene = wantGeneList[dragGeneListPosition]
         for ((index, view) in geneViewList.withIndex()) {
             if (v.x > view.x && v.x < view.x + view.width &&
                 v.y > view.y && v.y < view.y + view.height
             ) {
-                geneViewList[index].setImageResource(gene.getGeneIcon())
+                geneIconList[index].setImageResource(gene.getGeneIcon())
                 geneNameList[index].text = gene.name
                 (v as ImageView).setImageResource(0)
                 v.x = wantGenePositionList[dragGeneListPosition].x
@@ -99,6 +156,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
                 geneList[index] = wantGeneList[dragGeneListPosition]
                 wantGeneList.removeAt(dragGeneListPosition)
                 checkLine()
+                addWantGene()
                 return
             }
         }
@@ -121,9 +179,9 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
                 Toast.makeText(this, R.string.gene_double, Toast.LENGTH_SHORT).show()
             }
             else {
-                wantGeneList.add(0, gene)
-                binding.wantGeneOne.setImageResource(gene.getGeneIcon())
-                binding.wantGeneOne.setupGeneDraggable(listener = this)
+                val addPosition = wantGeneList.size
+                wantGeneList.add(addPosition, gene)
+                addWantGene()
             }
         }
     }

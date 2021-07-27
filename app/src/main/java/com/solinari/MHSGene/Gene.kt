@@ -24,5 +24,4 @@ data class Gene(
     @ColumnInfo var attributes: String = "",
     @ColumnInfo var name: String = "",
     @ColumnInfo var geneClass: GeneClass = GeneClass.NonEle
-) : Parcelable {
-}
+) : Parcelable
