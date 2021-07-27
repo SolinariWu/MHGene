@@ -38,10 +38,6 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         initWantGeneList()
         setAbout()
         addWantGene()
-//        binding.chooseGene.setOnClickListener {
-//            activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
-//        }
-//        binding.about.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
     }
 
     override fun onPositionChanged(view: View) {
@@ -70,6 +66,14 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         geneViewList.add(binding.sevenGene)
         geneViewList.add(binding.eightGene)
         geneViewList.add(binding.nineGene)
+        geneViewList.forEachIndexed { index, textView ->
+            textView.setOnClickListener {
+                if (geneList[index].id > 0){
+                    val reportDialog = GeneDetailInfoDialog.newInstance(geneList[index])
+                    reportDialog.show(supportFragmentManager, GENE_DETAIL_INFO_DIALOG)
+                }
+            }
+        }
     }
 
     private fun initGeneIconList() {

@@ -25,8 +25,8 @@ interface GeneDao {
     @Query("SELECT * FROM Gene WHERE id LIKE 1 limit 1")
     suspend fun getRainbowGene(): Gene
 
-    @Query("SELECT * FROM GeneDetailInfo WHERE (:id) LIKE 1 limit 1")
-    suspend fun getGeneDetailInfo(id: String): GeneDetailInfo
+    @Query("SELECT * FROM GeneDetailInfo WHERE id LIKE (:id) limit 1")
+    suspend fun getGeneDetailInfo(id: Int): GeneDetailInfo
 
     @Delete
     suspend fun deleteAllGene(genes: List<Gene>)

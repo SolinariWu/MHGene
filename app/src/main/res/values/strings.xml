@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">物語2 基因模擬器</string>
+    <string name="app_name">基因模擬器 魔物獵人:物語2</string>
     <string name="init_waiting_text">搬蛋蒐集基因中，請稍後…</string>
     <string name="choose_want_gene">新增想要的基因</string>
     <string name="fetch_gene_error">拉取基因資料失敗</string>
@@ -23,4 +23,11 @@
     <string name="about_developer">開發者：Solinari \nEmail：solinariwu@gmail.com</string>
     <string name="about_project_partner">感謝Sango , Skc , Coeur 協助開發</string>
     <string name="about_question">對此專案有任何問題或侵權疑慮，請Email聯絡我，感謝!</string>
+    <string name="gene_detail_info_cost">消耗：%s </string>
+    <string name="gene_detail_info_type">猜拳/屬性：%s </string>
+    <string name="gene_detail_info_desc">描述：%s </string>
+    <string name="gene_detail_info_from">出自：%s</string>
+    <string name="gene_detail_info_error">取得基因詳細資訊錯誤</string>
+    <string name="gene_item_more_info">更多資訊</string>
+    <string name="close">關閉</string>
 </resources>

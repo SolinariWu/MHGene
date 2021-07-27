@@ -1,8 +1,10 @@
 package com.solinari.MHSGene
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.solinari.MHSGene.databinding.ItemGeneBinding
 
@@ -40,6 +42,13 @@ class GeneAdapter(var context: Context) : RecyclerView.Adapter<GeneAdapter.ViewH
         init {
             binding.root.setOnClickListener {
                 listener?.geneClick(geneList[adapterPosition])
+            }
+
+            binding.moreInfo.setOnClickListener {
+                if (context is AppCompatActivity){
+                    val reportDialog = GeneDetailInfoDialog.newInstance(geneList[adapterPosition])
+                    reportDialog.show((context as AppCompatActivity).supportFragmentManager, GENE_DETAIL_INFO_DIALOG)
+                }
             }
         }
     }

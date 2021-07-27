@@ -28,7 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/want_gene_area_title"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -273,8 +273,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/twoGeneIcon"
         android:layout_width="0dp"
-        android:padding="12dp"
         android:layout_height="0dp"
+        android:padding="12dp"
         android:src="@drawable/ic_baseline_brightness_1_24"
         app:layout_constraintBottom_toTopOf="@id/twoGeneName"
         app:layout_constraintEnd_toEndOf="@id/twoGene"
@@ -345,8 +345,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/fourGeneIcon"
         android:layout_width="0dp"
-        android:padding="12dp"
         android:layout_height="0dp"
+        android:padding="12dp"
         android:src="@drawable/ic_baseline_brightness_1_24"
         app:layout_constraintBottom_toTopOf="@id/fourGeneName"
         app:layout_constraintEnd_toEndOf="@id/fourGene"
@@ -381,8 +381,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/fiveGeneIcon"
         android:layout_width="0dp"
-        android:padding="12dp"
         android:layout_height="0dp"
+        android:padding="12dp"
         android:src="@drawable/ic_baseline_brightness_1_24"
         app:layout_constraintBottom_toTopOf="@id/fiveGeneName"
         app:layout_constraintEnd_toEndOf="@id/fiveGene"
@@ -452,9 +452,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/sevenGeneIcon"
-        android:padding="12dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="12dp"
         android:src="@drawable/ic_baseline_brightness_1_24"
         app:layout_constraintBottom_toTopOf="@id/sevenGeneName"
         app:layout_constraintEnd_toEndOf="@id/sevenGene"
@@ -552,12 +552,12 @@
         android:id="@+id/about"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:minLines="1"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/about"
         android:textSize="12sp"
-        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -578,8 +578,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/wantGeneTwo"
         android:layout_width="0dp"
-        android:padding="10dp"
         android:layout_height="80dp"
+        android:padding="10dp"
+        android:tag="1"
         app:layout_constraintEnd_toStartOf="@id/wantGeneThree"
         app:layout_constraintStart_toEndOf="@id/wantGeneOne"
         app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
@@ -587,8 +588,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/wantGeneThree"
         android:layout_width="0dp"
-        android:padding="10dp"
         android:layout_height="80dp"
+        android:padding="10dp"
+        android:tag="2"
         app:layout_constraintEnd_toStartOf="@id/wantGeneFour"
         app:layout_constraintStart_toEndOf="@id/wantGeneTwo"
         app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
@@ -598,6 +600,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:padding="10dp"
+        android:tag="3"
         app:layout_constraintEnd_toStartOf="@id/wantGeneFive"
         app:layout_constraintStart_toEndOf="@id/wantGeneThree"
         app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
@@ -607,6 +610,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:padding="10dp"
+        android:tag="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/wantGeneFour"
         app:layout_constraintTop_toBottomOf="@id/wantGeneTitle"/>
