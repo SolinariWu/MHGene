@@ -5,8 +5,10 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
 # Demo
 
 <p align="center">
-  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_01.png" width="350">
-  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_02.png" width="350">
+  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_1.png" width="200">
+  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_2.png" width="200">
+  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_3.png" width="200">
+  <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_4.png" width="200">
 </p>
 
 ## License
