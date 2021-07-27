@@ -2,6 +2,12 @@
 
 Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.MHSGene
 
+還在基因配置煩惱?  還在用紙筆規劃嗎? 
+鄭重推出沒有廣告,超佛心的基因模擬器!
+輕鬆選取想要的基因，並放置到九宮格中，自動幫你計算賓果!
+點擊基因還可以查看詳細描述，並告訴你哪一隻魔物會有該基因!
+搬蛋搬到天荒地老!
+
 # Demo
 
 <p align="center">
@@ -10,6 +16,12 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
   <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_3.png" width="200">
   <img src="https://github.com/SolinariWu/MHGene/blob/main/img/img_4.png" width="200">
 </p>
+
+### Requirements
+    Android 5.1+ (API 22)
+
+### Latest version
+    - v1.1 (July 27 , 2021)
 
 ## License
     MIT License
