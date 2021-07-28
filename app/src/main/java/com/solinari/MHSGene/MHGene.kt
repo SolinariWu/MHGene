@@ -27,77 +27,81 @@ class MHGene : Application() {
 
         client.newCall(request.build()).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                applicationContext?.let {
+                    Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                }
             }
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
-                if (response.body == null) {
-                    Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
-                    return
-                }
+                applicationContext?.let {
+                    if (response.body == null) {
+                            Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                        return
+                    }
 
-                val respBody = response.body!!.string()
+                    val respBody = response.body!!.string()
 
-                val jsonElement = JsonParser().parse(respBody)
-                if (jsonElement is JsonObject && jsonElement.has("version")) {
+                    val jsonElement = JsonParser().parse(respBody)
+                    if (jsonElement is JsonObject && jsonElement.has("version")) {
 
-                    val sp = getSharedPreferences(MHGENE_SP, MODE_PRIVATE)
-                    val dao = GeneDataBase.getDatabase(this@MHGene).GeneDao()
+                        val sp = getSharedPreferences(MHGENE_SP, MODE_PRIVATE)
+                        val dao = GeneDataBase.getDatabase(it).GeneDao()
 
-                    CoroutineScope(Dispatchers.Main).launch {
-                        //若版本與本地的一樣，無需處理
-                        if (sp.getString(GENE_LIST_VERSION_SP, "") != jsonElement.get("version").asString || dao.getAllGene().isEmpty()) {
-                            dao.deleteAllGene(dao.getAllGene())
-                            sp.edit().putString(GENE_LIST_VERSION_SP, jsonElement.get("version").asString).apply()
-                            val geneArray = ArrayList<Gene>()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            //若版本與本地的一樣，無需處理
+                            if (sp.getString(GENE_LIST_VERSION_SP, "") != jsonElement.get("version").asString || dao.getAllGene().isEmpty()) {
+                                dao.deleteAllGene(dao.getAllGene())
+                                sp.edit().putString(GENE_LIST_VERSION_SP, jsonElement.get("version").asString).apply()
+                                val geneArray = ArrayList<Gene>()
 
-                            //彩虹因子
-                            if (jsonElement.has("-1")) {
-                                val rainbowGeneObject = jsonElement.getAsJsonObject("-1")
-                                if (rainbowGeneObject.has("-1")) {
-                                    val jsonArray = rainbowGeneObject.getAsJsonArray("-1")
-                                    geneArray.add(geneParser(jsonArray.get(0).asJsonObject, -1, -1))
+                                //彩虹因子
+                                if (jsonElement.has("-1")) {
+                                    val rainbowGeneObject = jsonElement.getAsJsonObject("-1")
+                                    if (rainbowGeneObject.has("-1")) {
+                                        val jsonArray = rainbowGeneObject.getAsJsonArray("-1")
+                                        geneArray.add(geneParser(jsonArray.get(0).asJsonObject, -1, -1))
+                                    }
                                 }
-                            }
 
-                            //無屬
-                            if (jsonElement.has("1")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("1"), 1))
-                            }
+                                //無屬
+                                if (jsonElement.has("1")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("1"), 1))
+                                }
 
-                            //火屬
-                            if (jsonElement.has("2")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("2"), 2))
-                            }
+                                //火屬
+                                if (jsonElement.has("2")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("2"), 2))
+                                }
 
-                            //水屬
-                            if (jsonElement.has("3")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("3"), 3))
-                            }
+                                //水屬
+                                if (jsonElement.has("3")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("3"), 3))
+                                }
 
-                            //雷屬
-                            if (jsonElement.has("4")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("4"), 4))
-                            }
+                                //雷屬
+                                if (jsonElement.has("4")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("4"), 4))
+                                }
 
-                            //冰屬
-                            if (jsonElement.has("5")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("5"), 5))
-                            }
+                                //冰屬
+                                if (jsonElement.has("5")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("5"), 5))
+                                }
 
-                            //龍屬
-                            if (jsonElement.has("6")) {
-                                geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("6"), 6))
-                            }
+                                //龍屬
+                                if (jsonElement.has("6")) {
+                                    geneArray.addAll(geneTypeParser(jsonElement.getAsJsonObject("6"), 6))
+                                }
 
-                            dao.insertGene(geneArray)
+                                dao.insertGene(geneArray)
+                            }
                         }
                     }
-                }
-                else {
-                    Toast.makeText(this@MHGene, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                    else {
+                        Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         })

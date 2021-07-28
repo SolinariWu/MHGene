@@ -93,6 +93,10 @@ class GeneDetailInfoDialog : DialogFragment() {
                     return
                 }
 
+                if (context == null) {
+                    return
+                }
+
                 val respBody = response.body!!.string()
                 val sp = requireContext().getSharedPreferences(MHGENE_SP, Application.MODE_PRIVATE)
                 val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
@@ -108,7 +112,7 @@ class GeneDetailInfoDialog : DialogFragment() {
                             val count = jsonElement.get("count").asInt
                             for (i in 1..count) {
                                 val geneDetailInfoObject = jsonElement.get(i.toString()).asJsonObject
-                                Log.d("test","item: ${geneDetailInfoObject.toString()}")
+                                Log.d("test", "item: ${geneDetailInfoObject.toString()}")
                                 val item = GeneDetailInfo().apply {
                                     id = geneDetailInfoObject.get("id").asInt
                                     name = geneDetailInfoObject.get("name").asString
@@ -141,7 +145,7 @@ class GeneDetailInfoDialog : DialogFragment() {
     }
 
     private fun setInfo() {
-        if (this::geneDetailInfo.isInitialized && this::binding.isInitialized) {
+        if (this::geneDetailInfo.isInitialized && this::binding.isInitialized && context != null) {
             binding.progressBar.hide()
             binding.skill.text = geneDetailInfo.skill
             binding.cost.text = getString(R.string.gene_detail_info_cost, geneDetailInfo.cost)
@@ -151,7 +155,7 @@ class GeneDetailInfoDialog : DialogFragment() {
     }
 
     private fun error() {
-        Toast.makeText(requireContext(), R.string.gene_detail_info_error, Toast.LENGTH_LONG).show()
+        context?.let { Toast.makeText(requireContext(), R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
         dismiss()
     }
 }

@@ -39,7 +39,9 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
         CoroutineScope(Dispatchers.Main).launch {
             val dao = GeneDataBase.getDatabase(this@ChooseGeneActivity).GeneDao()
             rainbowGene = dao.getRainbowGene()
-            adapter.addGeneToFirst(rainbowGene)
+            if (!this@ChooseGeneActivity.isDestroyed && this@ChooseGeneActivity::adapter.isInitialized){
+                adapter.addGeneToFirst(rainbowGene)
+            }
         }
         setClick()
     }
