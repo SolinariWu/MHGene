@@ -34,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:drawableStart="@drawable/ic_baseline_info_24"
+        android:foreground="?selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingEnd="8dp"
         android:text="@string/gene_item_more_info"

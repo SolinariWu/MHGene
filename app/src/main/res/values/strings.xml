@@ -30,4 +30,5 @@
     <string name="gene_detail_info_error">取得基因詳細資訊錯誤</string>
     <string name="gene_item_more_info">更多資訊</string>
     <string name="close">關閉</string>
+    <string name="update_gene_detail_info">更新基因詳細資訊</string>
 </resources>

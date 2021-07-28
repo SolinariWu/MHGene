@@ -27,7 +27,7 @@ class GeneDetailInfoDialog : DialogFragment() {
 
     private lateinit var gene: Gene
     private lateinit var geneDetailInfo: GeneDetailInfo
-    private lateinit var job: Job
+    private var jobList = ArrayList<Job>()
     private lateinit var binding: DialogGeneDetailInfoBinding
 
     companion object {
@@ -62,24 +62,46 @@ class GeneDetailInfoDialog : DialogFragment() {
         binding.geneIcon.setImageResource(gene.getGeneIcon())
         binding.geneName.text = gene.name
         binding.close.setOnClickListener { dismiss() }
+        binding.update.setOnClickListener {
+            binding.progressBar.show()
+            fetchGeneDetailInfo()
+        }
 
         checkData()
+        fetchGeneDetailInfo()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        if (this::job.isInitialized) {
-            job.cancel()
+        if (jobList.size > 0) {
+            jobList.forEach {
+                it.cancel()
+            }
         }
         super.onDismiss(dialog)
     }
 
 
     private fun checkData() {
+        val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
 
+        val job = CoroutineScope(Dispatchers.Main).launch {
+            if (dao.getAllGeneDetailInfo().isNotEmpty()) {
+                geneDetailInfo = dao.getGeneDetailInfo(gene.id)
+                setInfo()
+            }
+            else {
+                fetchGeneDetailInfo()
+            }
+        }
+        jobList.add(job)
+    }
+
+    private fun fetchGeneDetailInfo() {
         val client = OkHttpClient()
         val request = Request.Builder()
             .url(GENE_DETAIL_INFO_URL)
             .get()
+
 
         client.newCall(request.build()).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -93,69 +115,69 @@ class GeneDetailInfoDialog : DialogFragment() {
                     return
                 }
 
-                if (context == null) {
-                    return
-                }
+                activity?.let {
+                    val respBody = response.body!!.string()
+                    val sp = it.getSharedPreferences(MHGENE_SP, Application.MODE_PRIVATE)
+                    val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
 
-                val respBody = response.body!!.string()
-                val sp = requireContext().getSharedPreferences(MHGENE_SP, Application.MODE_PRIVATE)
-                val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
-
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    val jsonElement = JsonParser().parse(respBody)
-                    if (jsonElement is JsonObject && jsonElement.has("version") && jsonElement.has("count")) {
-                        //如果版本相同用本地資料即可
-                        if (jsonElement.get("version").asString != sp.getString(GENE_DETAIL_INFO_VERSION_SP, "")) {
-                            dao.deleteAllGeneDetailInfo(dao.getAllGeneDetailInfo())
-                            sp.edit().putString(GENE_DETAIL_INFO_VERSION_SP, jsonElement.get("version").asString).apply()
-                            val list = ArrayList<GeneDetailInfo>()
-                            val count = jsonElement.get("count").asInt
-                            for (i in 1..count) {
-                                val geneDetailInfoObject = jsonElement.get(i.toString()).asJsonObject
-                                Log.d("test", "item: ${geneDetailInfoObject.toString()}")
-                                val item = GeneDetailInfo().apply {
-                                    id = geneDetailInfoObject.get("id").asInt
-                                    name = geneDetailInfoObject.get("name").asString
-                                    skill = geneDetailInfoObject.get("skill").asString
-                                    type = geneDetailInfoObject.get("type").asString
-                                    cost = geneDetailInfoObject.get("cost").asString
-                                    desc = geneDetailInfoObject.get("desc").asString
-                                    from = geneDetailInfoObject.get("from").asString
+                    val job = CoroutineScope(Dispatchers.Main).launch {
+                        val jsonElement = JsonParser().parse(respBody)
+                        if (jsonElement is JsonObject && jsonElement.has("version") && jsonElement.has("count")) {
+                            //如果版本相同用本地資料即可
+                            if (jsonElement.get("version").asString != sp.getString(GENE_DETAIL_INFO_VERSION_SP, "")) {
+                                dao.deleteAllGeneDetailInfo(dao.getAllGeneDetailInfo())
+                                sp.edit().putString(GENE_DETAIL_INFO_VERSION_SP, jsonElement.get("version").asString).apply()
+                                val list = ArrayList<GeneDetailInfo>()
+                                val count = jsonElement.get("count").asInt
+                                for (i in 1..count) {
+                                    val geneDetailInfoObject = jsonElement.get(i.toString()).asJsonObject
+                                    Log.d("test", "item: ${geneDetailInfoObject.toString()}")
+                                    val item = GeneDetailInfo().apply {
+                                        id = geneDetailInfoObject.get("id").asInt
+                                        name = geneDetailInfoObject.get("name").asString
+                                        skill = geneDetailInfoObject.get("skill").asString
+                                        type = geneDetailInfoObject.get("type").asString
+                                        cost = geneDetailInfoObject.get("cost").asString
+                                        desc = geneDetailInfoObject.get("desc").asString
+                                        from = geneDetailInfoObject.get("from").asString
+                                    }
+                                    list.add(item)
+                                    if (item.id == gene.id) {
+                                        geneDetailInfo = item
+                                    }
                                 }
-                                list.add(item)
-                                if (item.id == gene.id) {
-                                    geneDetailInfo = item
-                                }
+                                setInfo()
+                                dao.insertGeneDetailInfo(list)
                             }
-                            setInfo()
-                            dao.insertGeneDetailInfo(list)
+                            else {
+                                geneDetailInfo = dao.getGeneDetailInfo(gene.id)
+                                setInfo()
+                            }
                         }
                         else {
-                            geneDetailInfo = dao.getGeneDetailInfo(gene.id)
-                            setInfo()
+                            error()
                         }
                     }
-                    else {
-                        error()
-                    }
+                    jobList.add(job)
                 }
-
             }
         })
     }
 
     private fun setInfo() {
-        if (this::geneDetailInfo.isInitialized && this::binding.isInitialized && context != null) {
-            binding.progressBar.hide()
-            binding.skill.text = geneDetailInfo.skill
-            binding.cost.text = getString(R.string.gene_detail_info_cost, geneDetailInfo.cost)
-            binding.desc.text = getString(R.string.gene_detail_info_desc, geneDetailInfo.desc)
-            binding.from.text = getString(R.string.gene_detail_info_from, geneDetailInfo.from)
+        activity?.let {
+            if (this::geneDetailInfo.isInitialized && this::binding.isInitialized) {
+                binding.progressBar.hide()
+                binding.skill.text = geneDetailInfo.skill
+                binding.cost.text = it.getString(R.string.gene_detail_info_cost, geneDetailInfo.cost)
+                binding.desc.text = it.getString(R.string.gene_detail_info_desc, geneDetailInfo.desc)
+                binding.from.text = it.getString(R.string.gene_detail_info_from, geneDetailInfo.from)
+            }
         }
     }
 
     private fun error() {
-        context?.let { Toast.makeText(requireContext(), R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
+        activity?.let { Toast.makeText(requireContext(), R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
         dismiss()
     }
 }
