@@ -118,7 +118,7 @@ class GeneDetailInfoDialog : DialogFragment() {
                 activity?.let {
                     val respBody = response.body!!.string()
                     val sp = it.getSharedPreferences(MHGENE_SP, Application.MODE_PRIVATE)
-                    val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
+                    val dao = GeneDataBase.getDatabase(it).GeneDao()
 
                     val job = CoroutineScope(Dispatchers.Main).launch {
                         val jsonElement = JsonParser().parse(respBody)
@@ -131,7 +131,6 @@ class GeneDetailInfoDialog : DialogFragment() {
                                 val count = jsonElement.get("count").asInt
                                 for (i in 1..count) {
                                     val geneDetailInfoObject = jsonElement.get(i.toString()).asJsonObject
-                                    Log.d("test", "item: ${geneDetailInfoObject.toString()}")
                                     val item = GeneDetailInfo().apply {
                                         id = geneDetailInfoObject.get("id").asInt
                                         name = geneDetailInfoObject.get("name").asString
@@ -177,7 +176,7 @@ class GeneDetailInfoDialog : DialogFragment() {
     }
 
     private fun error() {
-        activity?.let { Toast.makeText(requireContext(), R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
+        activity?.let { Toast.makeText(it, R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
         dismiss()
     }
 }
