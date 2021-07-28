@@ -52,7 +52,6 @@ class MHGene : Application() {
                         CoroutineScope(Dispatchers.Main).launch {
                             //若版本與本地的一樣，無需處理
                             if (sp.getString(GENE_LIST_VERSION_SP, "") != jsonElement.get("version").asString || dao.getAllGene().isEmpty()) {
-                                dao.deleteAllGene(dao.getAllGene())
                                 sp.edit().putString(GENE_LIST_VERSION_SP, jsonElement.get("version").asString).apply()
                                 val geneArray = ArrayList<Gene>()
 

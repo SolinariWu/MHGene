@@ -82,18 +82,20 @@ class GeneDetailInfoDialog : DialogFragment() {
 
 
     private fun checkData() {
-        val dao = GeneDataBase.getDatabase(requireContext()).GeneDao()
+        activity?.let {
+            val dao = GeneDataBase.getDatabase(it).GeneDao()
 
-        val job = CoroutineScope(Dispatchers.Main).launch {
-            if (dao.getAllGeneDetailInfo().isNotEmpty()) {
-                geneDetailInfo = dao.getGeneDetailInfo(gene.id)
-                setInfo()
+            val job = CoroutineScope(Dispatchers.Main).launch {
+                if (dao.getAllGeneDetailInfo().isNotEmpty()) {
+                    geneDetailInfo = dao.getGeneDetailInfo(gene.id)
+                    setInfo()
+                }
+                else {
+                    fetchGeneDetailInfo()
+                }
             }
-            else {
-                fetchGeneDetailInfo()
-            }
+            jobList.add(job)
         }
-        jobList.add(job)
     }
 
     private fun fetchGeneDetailInfo() {
@@ -125,7 +127,6 @@ class GeneDetailInfoDialog : DialogFragment() {
                         if (jsonElement is JsonObject && jsonElement.has("version") && jsonElement.has("count")) {
                             //如果版本相同用本地資料即可
                             if (jsonElement.get("version").asString != sp.getString(GENE_DETAIL_INFO_VERSION_SP, "")) {
-                                dao.deleteAllGeneDetailInfo(dao.getAllGeneDetailInfo())
                                 sp.edit().putString(GENE_DETAIL_INFO_VERSION_SP, jsonElement.get("version").asString).apply()
                                 val list = ArrayList<GeneDetailInfo>()
                                 val count = jsonElement.get("count").asInt

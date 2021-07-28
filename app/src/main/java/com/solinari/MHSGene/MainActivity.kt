@@ -12,6 +12,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.solinari.MHSGene.databinding.ActivityMainBinding
 import io.github.hyuwah.draggableviewlib.DraggableListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), DraggableListener, listenere {
     private lateinit var binding: ActivityMainBinding
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         arrayOf(0, 3, 6), arrayOf(1, 4, 7), arrayOf(2, 5, 8),
         arrayOf(0, 4, 8), arrayOf(2, 4, 6)
     )
+    private var canChoose = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         initWantGeneList()
         setAbout()
         addWantGene()
+        checkCanChoose()
     }
 
     override fun onPositionChanged(view: View) {
@@ -68,7 +73,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         geneViewList.add(binding.nineGene)
         geneViewList.forEachIndexed { index, textView ->
             textView.setOnClickListener {
-                if (geneList[index].id > 0){
+                if (geneList[index].id > 0) {
                     val reportDialog = GeneDetailInfoDialog.newInstance(geneList[index])
                     reportDialog.show(supportFragmentManager, GENE_DETAIL_INFO_DIALOG)
                 }
@@ -123,7 +128,12 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
 
     private fun wantGeneClick(position: Int) {
         if (position >= wantGeneList.size) {
-            activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
+            if (canChoose) {
+                activityResult.launch(Intent(this, ChooseGeneActivity::class.java))
+            }
+            else {
+                Toast.makeText(this, R.string.fetch_gene_process, Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -137,6 +147,16 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
                 imageView.setImageResource(R.drawable.ic_baseline_add_24)
                 imageView.setOnTouchListener(null)
             }
+        }
+    }
+
+    private fun checkCanChoose() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val dao = GeneDataBase.getDatabase(this@MainActivity).GeneDao()
+            while (dao.getAllGene().isEmpty()) {
+                canChoose = false
+            }
+            canChoose = true
         }
     }
 

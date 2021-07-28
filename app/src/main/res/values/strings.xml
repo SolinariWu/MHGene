@@ -3,6 +3,7 @@
     <string name="init_waiting_text">搬蛋蒐集基因中，請稍後…</string>
     <string name="choose_want_gene">新增想要的基因</string>
     <string name="fetch_gene_error">拉取基因資料失敗</string>
+    <string name="fetch_gene_process">基因資料處理中，請稍後</string>
 
     <string name="want_gene_area_title">待擺基因(用手指拖拉去想要的九宮格位置)</string>
     <string name="non_ele">無</string>

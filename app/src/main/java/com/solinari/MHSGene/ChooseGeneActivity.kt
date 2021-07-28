@@ -39,7 +39,7 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
         CoroutineScope(Dispatchers.Main).launch {
             val dao = GeneDataBase.getDatabase(this@ChooseGeneActivity).GeneDao()
             rainbowGene = dao.getRainbowGene()
-            if (!this@ChooseGeneActivity.isDestroyed && this@ChooseGeneActivity::adapter.isInitialized){
+            if (!this@ChooseGeneActivity.isDestroyed && this@ChooseGeneActivity::adapter.isInitialized && this@ChooseGeneActivity::rainbowGene.isInitialized){
                 adapter.addGeneToFirst(rainbowGene)
             }
         }
@@ -90,6 +90,12 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
     }
 
     private fun geneSelect() {
+        if (typeList.size == 0 && attrList.size == -0){
+            if (this@ChooseGeneActivity::rainbowGene.isInitialized){
+                adapter.addGeneToFirst(rainbowGene)
+            }
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val dao = GeneDataBase.getDatabase(this@ChooseGeneActivity).GeneDao()
             val geneList = dao.findByTypeAndAttributes(typeList, attrList)

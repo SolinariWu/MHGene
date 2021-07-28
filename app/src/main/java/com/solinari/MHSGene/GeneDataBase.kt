@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 private const val DATA_BASE_NAME = "gene_database"
 
-@Database(entities = arrayOf(Gene::class, GeneDetailInfo::class), version = 2)
+@Database(entities = arrayOf(Gene::class, GeneDetailInfo::class), version = 3)
 abstract class GeneDataBase : RoomDatabase() {
     abstract fun GeneDao(): GeneDao
 

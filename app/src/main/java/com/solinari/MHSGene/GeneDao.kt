@@ -1,9 +1,6 @@
 package com.solinari.MHSGene
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface GeneDao {
@@ -13,10 +10,10 @@ interface GeneDao {
     @Query("SELECT * FROM GeneDetailInfo")
     suspend fun getAllGeneDetailInfo(): List<GeneDetailInfo>
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGene(genes: List<Gene>)
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGeneDetailInfo(genes: List<GeneDetailInfo>)
 
     @Query("SELECT * FROM Gene WHERE type In (:type) AND attributes In (:attributes)")
