@@ -177,7 +177,9 @@ class GeneDetailInfoDialog : DialogFragment() {
     }
 
     private fun error() {
-        activity?.let { Toast.makeText(it, R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
-        dismiss()
+        CoroutineScope(Dispatchers.Main).launch {
+            activity?.let { Toast.makeText(it, R.string.gene_detail_info_error, Toast.LENGTH_LONG).show() }
+            dismiss()
+        }
     }
 }
