@@ -27,8 +27,10 @@ class MHGene : Application() {
 
         client.newCall(request.build()).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                applicationContext?.let {
-                    Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                CoroutineScope(Dispatchers.Main).launch {
+                    applicationContext?.let {
+                        Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
 
@@ -37,7 +39,7 @@ class MHGene : Application() {
 
                 applicationContext?.let {
                     if (response.body == null) {
-                            Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
+                        Toast.makeText(it, R.string.fetch_gene_error, Toast.LENGTH_LONG).show()
                         return
                     }
 
