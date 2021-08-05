@@ -243,6 +243,14 @@
         app:layout_constraintStart_toStartOf="@id/oneGene"
         app:layout_constraintTop_toTopOf="@id/oneGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/oneGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/oneGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/oneGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/oneGeneName"
         android:layout_width="wrap_content"
@@ -281,6 +289,14 @@
         app:layout_constraintStart_toStartOf="@id/twoGene"
         app:layout_constraintTop_toTopOf="@id/twoGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/twoGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/twoGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/twoGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/twoGeneName"
         android:layout_width="wrap_content"
@@ -318,6 +334,14 @@
         app:layout_constraintStart_toStartOf="@id/threeGene"
         app:layout_constraintTop_toTopOf="@id/threeGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/threeGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/threeGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/threeGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/threeGeneName"
         android:layout_width="wrap_content"
@@ -352,6 +376,14 @@
         app:layout_constraintEnd_toEndOf="@id/fourGene"
         app:layout_constraintStart_toStartOf="@id/fourGene"
         app:layout_constraintTop_toTopOf="@id/fourGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fourGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/fourGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/fourGeneIcon"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fourGeneName"
@@ -389,6 +421,14 @@
         app:layout_constraintStart_toStartOf="@id/fiveGene"
         app:layout_constraintTop_toTopOf="@id/fiveGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fiveGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/fiveGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/fiveGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fiveGeneName"
         android:layout_width="wrap_content"
@@ -424,6 +464,14 @@
         app:layout_constraintEnd_toEndOf="@id/sixGene"
         app:layout_constraintStart_toStartOf="@id/sixGene"
         app:layout_constraintTop_toTopOf="@id/sixGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sixGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/sixGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/sixGeneIcon"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sixGeneName"
@@ -461,6 +509,14 @@
         app:layout_constraintStart_toStartOf="@id/sevenGene"
         app:layout_constraintTop_toTopOf="@id/sevenGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sevenGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/sevenGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/sevenGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sevenGeneName"
         android:layout_width="wrap_content"
@@ -497,6 +553,14 @@
         app:layout_constraintStart_toStartOf="@id/eightGene"
         app:layout_constraintTop_toTopOf="@id/eightGene"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/eightGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/eightGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/eightGeneIcon"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/eightGeneName"
         android:layout_width="wrap_content"
@@ -532,6 +596,14 @@
         app:layout_constraintEnd_toEndOf="@id/nineGene"
         app:layout_constraintStart_toStartOf="@id/nineGene"
         app:layout_constraintTop_toTopOf="@id/nineGene"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nineGeneDeleteIcon"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/nineGeneIcon"
+        app:layout_constraintTop_toTopOf="@id/nineGeneIcon"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nineGeneName"

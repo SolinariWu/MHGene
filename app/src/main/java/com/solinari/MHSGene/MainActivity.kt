@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
     private var wantGeneList = ArrayList<Gene>()
     private var geneViewList = ArrayList<View>()
     private var geneIconList = ArrayList<ImageView>()
+    private var geneDeleteIconList = ArrayList<ImageView>()
     private var geneNameList = ArrayList<TextView>()
     private var wantGenePositionList = ArrayList<ViewPosition>()
     private var wantGeneViewList = ArrayList<ImageView>()
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         setContentView(binding.root)
         initGeneViewList()
         initGeneIconList()
+        initGeneDeleteIconList()
         initGeneNameList()
         initWantGeneList()
         setAbout()
@@ -91,6 +93,26 @@ class MainActivity : AppCompatActivity(), DraggableListener, listenere {
         geneIconList.add(binding.sevenGeneIcon)
         geneIconList.add(binding.eightGeneIcon)
         geneIconList.add(binding.nineGeneIcon)
+    }
+
+    private fun initGeneDeleteIconList() {
+        geneDeleteIconList.add(binding.oneGeneDeleteIcon)
+        geneDeleteIconList.add(binding.twoGeneDeleteIcon)
+        geneDeleteIconList.add(binding.threeGeneDeleteIcon)
+        geneDeleteIconList.add(binding.fourGeneDeleteIcon)
+        geneDeleteIconList.add(binding.fiveGeneDeleteIcon)
+        geneDeleteIconList.add(binding.sixGeneDeleteIcon)
+        geneDeleteIconList.add(binding.sevenGeneDeleteIcon)
+        geneDeleteIconList.add(binding.eightGeneDeleteIcon)
+        geneDeleteIconList.add(binding.nineGeneDeleteIcon)
+        geneDeleteIconList.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                geneIconList[index].setImageResource(R.drawable.ic_baseline_brightness_1_24)
+                geneNameList[index].text = ""
+                geneList[index] = Gene()
+                checkLine()
+            }
+        }
     }
 
     private fun initWantGeneList() {
