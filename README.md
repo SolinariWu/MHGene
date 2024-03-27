@@ -22,7 +22,7 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
     Android 5.1+ (API 22)
 
 ### Latest version
-    - v1.8 (August 5 , 2021)
+    - v1.9 (March 27 , 2024)
 
 ### Thanks
 
@@ -31,7 +31,7 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
 ## License
     MIT License
 
-    Copyright (c) 2021 Solinari
+    Copyright (c) 2024 Solinari
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
