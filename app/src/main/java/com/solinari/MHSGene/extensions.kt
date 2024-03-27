@@ -59,7 +59,6 @@ fun View.setupGeneDraggable(
                 v.y = newY
 
                 draggableListener?.onPositionChanged(v)
-//                minimizeBtnListener.onPositionChanged(v, StickyRestSide.HIDE)
             }
             MotionEvent.ACTION_UP -> {
                 when (stickyAxis) {
@@ -70,18 +69,15 @@ fun View.setupGeneDraggable(
                                     .setDuration(Draggable.DURATION_MILLIS)
                                     .setUpdateListener {
                                         draggableListener?.onPositionChanged(v)
-//                                        minimizeBtnListener.onPositionChanged(v, StickyRestSide.RIGHT)
                                     }
                                     .setListener(object : AnimatorListenerAdapter() {
-                                        override fun onAnimationEnd(animation: Animator?) {
+                                        override fun onAnimationEnd(animation: Animator) {
                                             super.onAnimationEnd(animation)
-                                            Log.d("drg", "Animate END Sticky X RIGHT")
                                         }
                                     })
                                     .start()
                             else {
                                 v.x = xMax
-//                                minimizeBtnListener.onPositionChanged(v, StickyRestSide.RIGHT)
                             }
                         }
                         else {
@@ -89,12 +85,10 @@ fun View.setupGeneDraggable(
                                 v.animate().x(marginStart).setDuration(Draggable.DURATION_MILLIS)
                                     .setUpdateListener {
                                         draggableListener?.onPositionChanged(v)
-//                                        minimizeBtnListener.onPositionChanged(v, StickyRestSide.LEFT)
                                     }
                                     .start()
                             else {
                                 v.x = marginStart
-//                                minimizeBtnListener.onPositionChanged(v, StickyRestSide.LEFT)
                             }
                         }
                     }
