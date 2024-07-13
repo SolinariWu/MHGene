@@ -22,7 +22,7 @@ Google Play Store : https://play.google.com/store/apps/details?id=com.solinari.M
     Android 5.1+ (API 22)
 
 ### Latest version
-    - v1.9 (March 27 , 2024)
+    - v1.10 (July 13 , 2024)
 
 ### Thanks
 
