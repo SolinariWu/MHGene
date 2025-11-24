@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 36
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.solinari.MHSGene"
         minSdkVersion 22
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 12
         versionName "1.11"
 
@@ -32,14 +32,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
+
 
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.solinari.MHSGene'
 }
 
 dependencies {

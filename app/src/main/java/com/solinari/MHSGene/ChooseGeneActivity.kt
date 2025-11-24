@@ -60,10 +60,7 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
     }
 
     private val attrClickListener = object : CompoundButton.OnCheckedChangeListener {
-        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-            if (buttonView == null) {
-                return
-            }
+        override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
             if (isChecked) {
                 attrList.add(buttonView.text.toString())
             }
@@ -75,7 +72,7 @@ class ChooseGeneActivity : AppCompatActivity(), GeneAdapter.GeneClickListener {
     }
 
     private val typeClickListener = object : CompoundButton.OnCheckedChangeListener {
-        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
             if (buttonView == null) {
                 return
             }
